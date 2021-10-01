@@ -41,4 +41,4 @@ To mimick the behavior of `BytesIO.write` method, the `write_*` methods return t
 * `write_varint` - Converts and writes a Python `int` into a 7-bit encoded integer (varint).
 
 ## Motivation
-C# `BinaryReader` and `BinaryWriter` 
+C# `BinaryReader` and `BinaryWriter`

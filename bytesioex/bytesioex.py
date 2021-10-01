@@ -17,7 +17,7 @@ Float = Struct('f')
 Double = Struct('d')
 
 class BytesIOEx(io.BytesIO):
-    """a simple wrapper over Python's `io.BytesIO` which provides additional
+    """A simple wrapper over Python's `io.BytesIO` which provides additional
     methods for reading and writing C data types like `int8`, `uint8`, `bool`,
     `float`, `double` etc."""
 
@@ -40,7 +40,7 @@ class BytesIOEx(io.BytesIO):
         """Reads a 1-byte ASCII-character."""
         buf = self.read(1)
         return Char.unpack(buf)[0] if len(buf) == 1 else None
-    
+
     def read_int16(self) -> Optional[int]:
         """Reads a 2-byte signed integer."""
         buf = self.read(2)
@@ -114,7 +114,7 @@ class BytesIOEx(io.BytesIO):
     def write_char(self, value: str) -> int:
         """Converts and writes a Python `int` into an unsigned 8-bit integer."""
         return self.write(Char.pack(value))
-    
+
     def write_int16(self, value: int) -> int:
         """Converts and writes a Python `int` into a signed 16-bit integer."""
         return self.write(Short.pack(value))
