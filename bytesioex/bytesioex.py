@@ -3,18 +3,19 @@ from struct import Struct
 from typing import Optional
 
 # Converters
-Bool = Struct('?')
-Char = Struct('c')
-SByte = Struct('b')
-Byte = Struct('B')
-Short = Struct('h')
-UShort = Struct('H')
-Int = Struct('i')
-UInt = Struct('I')
-Long = Struct('q')
-ULong = Struct('Q')
-Float = Struct('f')
-Double = Struct('d')
+Bool = Struct("?")
+Char = Struct("c")
+SByte = Struct("b")
+Byte = Struct("B")
+Short = Struct("h")
+UShort = Struct("H")
+Int = Struct("i")
+UInt = Struct("I")
+Long = Struct("q")
+ULong = Struct("Q")
+Float = Struct("f")
+Double = Struct("d")
+
 
 class BytesIOEx(io.BytesIO):
     """A simple wrapper over Python's `io.BytesIO` which provides additional
@@ -26,71 +27,71 @@ class BytesIOEx(io.BytesIO):
         buf = self.read(1)
         return Bool.unpack(buf)[0] if len(buf) == 1 else None
 
-    def read_int8(self) -> Optional[int]:
+    def read_b(self) -> Optional[int]:
         """Reads a 1-byte signed integer."""
         buf = self.read(1)
         return SByte.unpack(buf)[0] if len(buf) == 1 else None
 
-    def read_uint8(self) -> Optional[int]:
+    def read_B(self) -> Optional[int]:
         """Reads a 1-byte unsigned integer."""
         buf = self.read(1)
         return Byte.unpack(buf)[0] if len(buf) == 1 else None
 
-    def read_char(self) -> Optional[str]:
+    def read_c(self) -> Optional[str]:
         """Reads a 1-byte ASCII-character."""
         buf = self.read(1)
         return Char.unpack(buf)[0] if len(buf) == 1 else None
 
-    def read_int16(self) -> Optional[int]:
+    def read_h(self) -> Optional[int]:
         """Reads a 2-byte signed integer."""
         buf = self.read(2)
         return Short.unpack(buf)[0] if len(buf) == 2 else None
 
-    def read_uint16(self) -> Optional[int]:
+    def read_H(self) -> Optional[int]:
         """Reads a 2-byte unsigned integer."""
         buf = self.read(2)
         return UShort.unpack(buf)[0] if len(buf) == 2 else None
 
-    def read_int32(self) -> Optional[int]:
+    def read_i(self) -> Optional[int]:
         """Reads a 4-byte signed integer."""
         buf = self.read(4)
         return Int.unpack(buf)[0] if len(buf) == 4 else None
 
-    def read_uint32(self) -> Optional[int]:
+    def read_I(self) -> Optional[int]:
         """Reads a 4-byte unsigned integer."""
         buf = self.read(4)
         return UInt.unpack(buf)[0] if len(buf) == 4 else None
 
-    def read_int64(self) -> Optional[int]:
+    def read_q(self) -> Optional[int]:
         """Reads an 8-byte signed integer."""
         buf = self.read(8)
         return Long.unpack(buf)[0] if len(buf) == 8 else None
 
-    def read_uint64(self) -> Optional[int]:
+    def read_Q(self) -> Optional[int]:
         """Reads an 8-byte unsigned integer."""
         buf = self.read(8)
         return ULong.unpack(buf)[0] if len(buf) == 8 else None
 
-    def read_float(self) -> Optional[float]:
+    def read_f(self) -> Optional[float]:
         """Reads a 4-byte floating-point number."""
         buf = self.read(4)
         return Float.unpack(buf)[0] if len(buf) == 4 else None
 
-    def read_double(self) -> Optional[float]:
+    def read_d(self) -> Optional[float]:
         """Reads an 8-byte floating-point number."""
         buf = self.read(8)
         return Double.unpack(buf)[0] if len(buf) == 8 else None
 
-    def read_varint(self) -> Optional[int]:
+    def read_v(self) -> Optional[int]:
         """Reads a 7-bit encoded integer, the exact size of this type is not
-        fixed, hence the name "var"int. If the stream pointer reaches the
+        fixed, hence the name **varint**. If the stream pointer reaches the
         end before being completely able to read, it will return None."""
-        b = self.read_uint8()
+        b = self.read_B()
         if b is not None:
             data_len = b & 0x7F
             shift = 7
             while (b & 0x80) != 0:
-                b = self.read_uint8()
+                b = self.read_B()
                 if b is None:
                     return None
                 data_len |= (b & 0x7F) << shift
@@ -99,56 +100,57 @@ class BytesIOEx(io.BytesIO):
         return None
 
     def write_bool(self, value: bool) -> int:
-        """Converts and writes a Python `bool` into a C99-style _Bool type,
+        """Converts and writes a `bool` into a C99-style _Bool type,
         where False = 0, True = 1."""
         return self.write(Bool.pack(value))
 
-    def write_int8(self, value: int) -> int:
-        """Converts and writes a Python `int` into a signed 8-bit integer."""
+    def write_b(self, value: int) -> int:
+        """Converts and writes a `int` into a signed 8-bit integer."""
         return self.write(SByte.pack(value))
 
-    def write_uint8(self, value: int) -> int:
-        """Converts and writes a Python `int` into an unsigned 8-bit integer."""
+    def write_B(self, value: int) -> int:
+        """Converts and writes a `int` into an unsigned 8-bit integer."""
         return self.write(Byte.pack(value))
 
-    def write_char(self, value: str) -> int:
-        """Converts and writes a Python `int` into an unsigned 8-bit integer."""
+    def write_c(self, value: str) -> int:
+        """Converts and writes a `int` into an unsigned 8-bit integer."""
         return self.write(Char.pack(value))
 
-    def write_int16(self, value: int) -> int:
-        """Converts and writes a Python `int` into a signed 16-bit integer."""
+    def write_h(self, value: int) -> int:
+        """Converts and writes a `int` into a signed 16-bit integer."""
         return self.write(Short.pack(value))
 
-    def write_uint16(self, value: int) -> int:
-        """Converts and writes a Python `int` into an unsigned 16-bit integer."""
+    def write_H(self, value: int) -> int:
+        """Converts and writes a `int` into an unsigned 16-bit integer."""
         return self.write(UShort.pack(value))
 
-    def write_int32(self, value: int) -> int:
-        """Converts and writes a Python `int` into a signed 32-bit integer."""
+    def write_i(self, value: int) -> int:
+        """Converts and writes a `int` into a signed 32-bit integer."""
         return self.write(Int.pack(value))
 
-    def write_uint32(self, value: int) -> int:
-        """Converts and writes a Python `int` into an unsigned 32-bit integer."""
+    def write_I(self, value: int) -> int:
+        """Converts and writes a `int` into an unsigned 32-bit integer."""
         return self.write(UInt.pack(value))
 
-    def write_int64(self, value: int) -> int:
-        """Converts and writes a Python `int` into a signed 64-bit integer."""
+    def write_q(self, value: int) -> int:
+        """Converts and writes a `int` into a signed 64-bit integer."""
         return self.write(Long.pack(value))
 
-    def write_uint64(self, value: int) -> int:
-        """Converts and writes a Python `int` into an unsigned 64-bit integer."""
+    def write_Q(self, value: int) -> int:
+        """Converts and writes a `int` into an unsigned 64-bit integer."""
         return self.write(ULong.pack(value))
 
-    def write_float(self, value: float) -> int:
-        """Converts and writes a Python `float` into a 4-byte floating-point number."""
+    def write_f(self, value: float) -> int:
+        """Converts and writes a `float` into a 4-byte floating-point number."""
         return self.write(Float.pack(value))
 
-    def write_double(self, value: float) -> int:
-        """Converts and writes a Python `float` into an 8-byte floating-point number."""
+    def write_d(self, value: float) -> int:
+        """Converts and writes a `float` into an 8-byte floating-point number."""
         return self.write(Double.pack(value))
 
-    def write_varint(self, buflen: int) -> int:
-        """Converts an unsigned integer to a 7-bit encoded integer (varint) and writes it.
+    def write_v(self, buflen: int) -> int:
+        """Converts an unsigned integer to a 7-bit encoded integer (varint)
+        and writes it.
 
         Args:
             buflen (int): The length of the buffer to be converted and written.
