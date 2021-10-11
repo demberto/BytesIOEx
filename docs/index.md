@@ -8,15 +8,12 @@ BytesIOEx is a simple wrapper over Python's `io.BytesIO` which provides addition
 
 ## Installation
 
-BytesIOEx requires Python 3.6 or newer, it may run on older version as well but I have not tested it.
+!!! important
+    BytesIOEx requires Python 3.6 or newer, it may run on older version as well but I have not tested it.
 
 ```
 pip install --upgrade bytesioex
 ```
-
-## Documentation
-
-Docs are available on [ReadTheDocs](https://bytesioex.rtfd.io/)
 
 ## Motivation
 

@@ -1,1 +1,1 @@
-from bytesioex.bytesioex import BytesIOEx
+from .bytesioex import BytesIOEx
