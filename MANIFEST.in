@@ -3,3 +3,8 @@ include README.md
 include pyproject.toml
 include TODO.md
 include docs/*
+include py.typed
+include mkdocs.yml
+include requirements-dev.txt
+include tox.ini
+include VERSION

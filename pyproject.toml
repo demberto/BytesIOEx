@@ -1,6 +1,74 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
+requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.coverage.run]
+source = ["bytesioex"]
+branch = true
+parallel = true
+
+[tool.coverage.report]
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+exclude = "venv"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = "tests"
+
+[tool.pylint.MASTER]
+jobs = 0 # Parallel execution
+
+[tool.pylint.'MESSAGE CONTROL']
+disable = "invalid-name"
+
+[tool.tbump]
+# Uncomment this if your project is hosted on GitHub:
+github_url = "https://github.com/demberto/BytesIOEx/"
+
+[tool.tbump.version]
+current = "0.1.0"
+
+# Example of a semver regexp.
+# Make sure this matches current_version before
+# using tbump
+regex = '''
+  (?P<major>\d+)
+  \.
+  (?P<minor>\d+)
+  \.
+  (?P<patch>\d+)
+  '''
+
+[tool.tbump.git]
+message_template = "Bump to {new_version}"
+tag_template = "v{new_version}"
+
+# For each file to patch, add a [[tool.tbump.file]] config
+# section containing the path of the file, relative to the
+# tbump.toml location.
+[[tool.tbump.file]]
+src = "VERSION"
+
+# You can specify a list of commands to
+# run after the files have been patched
+# and before the git commit is made
+
+[[tool.tbump.before_commit]]
+name = "Check changelog"
+cmd = "git grep -q --fixed {new_version} CHANGELOG.md"
+
+# Or run some commands after the git tag and the branch
+# have been pushed:
+#  [[tool.tbump.after_push]]
+#  name = "publish"
+#  cmd = "./publish.sh"

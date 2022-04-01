@@ -1,9 +1,6 @@
 site_name: BytesIOEx
 site_author: demberto
 repo_url: https://github.com/demberto/BytesIOEx
-nav:
-  - Overview: index.md
-  - Reference: reference.md
 theme: readthedocs
 markdown_extensions:
   - admonition
