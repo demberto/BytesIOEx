@@ -29,14 +29,14 @@ testpaths = "tests"
 jobs = 0 # Parallel execution
 
 [tool.pylint.'MESSAGE CONTROL']
-disable = "invalid-name"
+disable = ["invalid-name", "import-error"]
 
 [tool.tbump]
 # Uncomment this if your project is hosted on GitHub:
 github_url = "https://github.com/demberto/BytesIOEx/"
 
 [tool.tbump.version]
-current = "0.1.0"
+current = "0.1.1"
 
 # Example of a semver regexp.
 # Make sure this matches current_version before
