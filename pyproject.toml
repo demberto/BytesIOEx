@@ -29,7 +29,7 @@ testpaths = "tests"
 jobs = 0 # Parallel execution
 
 [tool.pylint.'MESSAGE CONTROL']
-disable = "invalid-name"
+disable = ["invalid-name", "import-error"]
 
 [tool.tbump]
 # Uncomment this if your project is hosted on GitHub:
