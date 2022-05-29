@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Strict type checking for code and tests with `mypy`.
 
+### Fixed
+
+- Moved `py.typed` to correct location ensuring compatibility with mypy.
 ## [0.1.1] - 2022-03-20
 
 Better code quality enforcements and a leaner project structure. BytesIOEx
