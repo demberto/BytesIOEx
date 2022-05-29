@@ -66,7 +66,7 @@ CONVERTER = {
         (INT64_MIN, INT64_MAX, "q"),
     ],
 )
-def test_read_integer_types(min_: int, max_: int, fmt: str):
+def test_read_integer_types(min_: int, max_: int, fmt: str) -> None:
     """Tests `read_{B,b,H,h,I,i,Q,q}` and `write_{B,b,H,h,I,i,Q,q}`."""
     num = random.randint(min_, max_)
     converter = CONVERTER[fmt]
@@ -80,7 +80,7 @@ def test_read_integer_types(min_: int, max_: int, fmt: str):
         assert read_func() == num
 
 
-def test_char():
+def test_char() -> None:
     """Tests `read_c` and `write_c`."""
     letter = chr(random.randrange(65, 126))
     with BytesIOEx(letter.encode("ascii")) as b:
@@ -89,7 +89,7 @@ def test_char():
         assert b.read_c() == letter
 
 
-def test_bool():
+def test_bool() -> None:
     """Tests `read_bool` and `write_bool`."""
     with BytesIOEx(Bool.pack(True)) as b:
         b.write_bool(False)
@@ -97,27 +97,31 @@ def test_bool():
         assert not b.read_bool()
 
 
-def test_double():
+def test_double() -> None:
     """Tests `read_d` and `write_d`."""
-    dbl = random.random()
-    with BytesIOEx(Double.pack(dbl)) as b:
+    random_double = random.random()
+    with BytesIOEx(Double.pack(random_double)) as b:
         # A 64-bit floating point integer has about 16 digits of precision
-        assert math.isclose(b.read_d(), dbl, rel_tol=1e-16)
-        b.write_d(dbl)
+        double = b.read_d()
+        assert isinstance(double, float)
+        assert math.isclose(double, random_double, rel_tol=1e-16)
+        b.write_d(random_double)
         b.seek(1)
 
 
-def test_float():
+def test_float() -> None:
     """Tests `read_f` and `write_f`."""
-    flt = random.random()
-    with BytesIOEx(Float.pack(flt)) as b:
+    random_float = random.random()
+    with BytesIOEx(Float.pack(random_float)) as b:
         # A 32-bit floating point integer has about 7 digits of precision
-        assert math.isclose(b.read_f(), flt, rel_tol=1e-7)
-        b.write_f(flt)
+        float_ = b.read_f()
+        assert isinstance(float_, float)
+        assert math.isclose(float_, random_float, rel_tol=1e-7)
+        b.write_f(random_float)
         b.seek(1)
 
 
-def test_varint():
+def test_varint() -> None:
     """Tests `read_v` and `write_v`."""
     bignum = random.randint(2**8, 2**32)
     with BytesIOEx() as b:
