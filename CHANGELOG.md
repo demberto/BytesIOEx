@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Moved `py.typed` to correct location ensuring compatibility with mypy.
+- CI.
+
 ## [0.1.1] - 2022-03-20
 
 Better code quality enforcements and a leaner project structure. BytesIOEx
@@ -58,5 +60,6 @@ boasts of a 98% coverage now!
 
 <!-- VERSION LINKS -->
 
+[0.1.2]: https://github.com/demberto/bytesioex/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/demberto/bytesioex/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/demberto/bytesioex/releases/tag/v0.0.1
